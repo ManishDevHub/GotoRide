@@ -48,5 +48,15 @@ module.exports.loginUser = async(req, res, next) => {
     }
 
     const token = user.generateAuthToken();
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: false, 
+  sameSite: "strict"
+});
     res.status(200).json({ token, user });
+}
+
+
+module.exports.getUserProfile = async (req, res, next )=>{
+    res.status(200).json(req.user);
 }
