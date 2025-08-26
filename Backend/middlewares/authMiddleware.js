@@ -16,10 +16,15 @@ module.exports.authUser = async (req, res, next) => {
       return res.status(401).json({ message: 'Unauthorized: No token' });
     }
 
+    const isBlacklisted = await userModal.findOne({ token: token})
+if(isBlacklisted) {
+  res.status(401).json({ message: 'Unauthorized'})
+}
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await userModal.findById(decoded._id).select("-password");
     if (!user) {
-      return res.status(401).json({ message: 'Unauthorized: User not found' });
+      return res.status(401).json({ message: 'Unauthorized: User not found ' });
     }
 
     req.user = user;

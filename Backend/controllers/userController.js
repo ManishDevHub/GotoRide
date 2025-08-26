@@ -2,6 +2,7 @@ const userModel = require('../models/userModal')
 const userService = require('../services/userService')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcrypt')
+const blacklistTokenModal = require('../models/blacklistTokenModal')
 module.exports.registerUser = async (req, res, next) =>{
 
 const errors = validationResult(req);
@@ -60,3 +61,24 @@ module.exports.loginUser = async(req, res, next) => {
 module.exports.getUserProfile = async (req, res, next )=>{
     res.status(200).json(req.user);
 }
+
+
+
+module.exports.logoutUser = async (req, res, next) => {
+  try {
+   
+    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(400).json({ message: "No token provided" });
+    }
+    await blacklistTokenModal.create({ token });
+
+    res.clearCookie("token");
+
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
