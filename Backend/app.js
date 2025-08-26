@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}))
 
-const userRoutes = require('./routes/userRoutes')
+const userRoutes = require('./routes/userRoutes');
+const captainRoutes = require('./routes/captainRoute')
 
 
 connectToDb();
@@ -19,7 +20,7 @@ app.get('/' , (req , res) =>{
 });
 
 app.use('/users', userRoutes);
-
+app.use('/captains', captainRoutes);
 
 
 module.exports = app;
