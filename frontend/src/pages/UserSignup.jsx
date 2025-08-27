@@ -19,7 +19,7 @@ export default function UserSignup() {
     }
         })
         
-console.log(userData)
+
     setEmail('')
     setPassword('')
     setFirstName('')
