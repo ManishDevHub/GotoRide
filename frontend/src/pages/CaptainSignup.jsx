@@ -13,7 +13,7 @@ export default function CaptainSignup() {
     setUserData({
         email:email,
         password:password,
-        username:{
+        firstname:{
                   firstName:firstName,
                    lastName:lastName,
     }
@@ -35,7 +35,7 @@ export default function CaptainSignup() {
             <form onSubmit={(e) =>{
                 submitHandler(e)
             }} >
-                <h3 className='text-xl font-medium mb-2'>What's your name</h3>
+                <h3 className='text-xl font-medium mb-2'>What's our Captain's name</h3>
                 <div className='flex gap-4'>
                    <input className='bg-[#eeeeee] mb-7 rounded px-4 py-2 border w-1/2
                 text-lg placeholder:text-base' type="text" required value={firstName}
@@ -52,7 +52,7 @@ export default function CaptainSignup() {
                    
                  placeholder='Lastname' />
                 </div>
-                 <h3 className='text-xl font-medium mb-2'>What's your email</h3>
+                 <h3 className='text-xl font-medium mb-2'>What's our Captain's email</h3>
                 <input className='bg-[#eeeeee] mb-7 rounded px-4 py-2 border w-full
                 text-lg placeholder:text-base' type="email" required value={email} onChange={(e)=>{
                     setEmail(e.target.value)
@@ -66,7 +66,7 @@ export default function CaptainSignup() {
                     setPassword(e.target.value)
                 }} placeholder='password' />
                 <button className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2  w-full
-                text-lg placeholder:text-base' >Signup</button>
+                text-lg placeholder:text-base' >Create account</button>
             <p className='text-center'>Already have a account  <Link to='/captain-login' className='text-blue-600'> Login here </Link></p>
             </form>
     </div>
