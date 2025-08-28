@@ -10,23 +10,24 @@ export default function UserSignup() {
     const [userData, setUserData] = useState({})
 
     const navigate = useNavigate()
-    const { user, setUser } = React.useContext(UserDataContext)
+    const { user, setUser } = React.useContext(UserDataContext);
 
     const submitHandler =  async (e) => {
     e.preventDefault();
     const newUser = {
         
-        email:email,
-        password:password,
+       
         fullname:{
                   firstname:firstName,
                    lastname:lastName,
-    }
+    }, email:email,
+        password:password,
+
         }
         
         const responce = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
 
-        if(responce.status ===201){
+        if(responce.status === 201){
             const data = responce.data
             setUser(data.user)
             navigate('/home')
