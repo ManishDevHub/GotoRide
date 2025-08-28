@@ -30,6 +30,7 @@ export default function UserSignup() {
         if(responce.status === 201){
             const data = responce.data
             setUser(data.user)
+            localStorage.setItem('token', data.token)
             navigate('/home')
         }
 
