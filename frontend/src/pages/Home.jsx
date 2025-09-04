@@ -1,12 +1,17 @@
 import React, { useRef, useState } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import 'remixicon/fonts/remixicon.css'
+import LocationSearchPanel from '../components/LocationSearchPanel';
+
+
 export default function Home() {
 
   const [pickup, setPickup] = useState('');
   const [destination, setDestination] = useState('')
   const [panelOpen, setpanelOpen] = useState(false)
  const panelRef = useRef(null)
+ const panelCloseRef = useRef(null)
   const submitHandle = (e) =>{
  e.preventDefault()
   }
@@ -15,11 +20,18 @@ useGSAP(()=>{
 if(panelOpen){
     gsap.to(panelRef.current,{
     height:'70%',
+   
   });
+  gsap.to(panelCloseRef.current, {
+    opacity: 1
+  })
 } else{
     gsap.to(panelRef.current,{
     height:'0%',
   });
+    gsap.to(panelCloseRef.current, {
+    opacity: 0
+  })
 }
 },[panelOpen])
 
@@ -31,6 +43,10 @@ if(panelOpen){
        </div>
        <div className='flex flex-col justify-end absolute h-screen top-0 w-full '>
       <div className='h-[30%] p-5 bg-white relative'>
+        <h5 ref={panelCloseRef} onClick={() => {
+          setpanelOpen(false)
+        }} 
+        className='absolute opacity-0 right-6 top-6 text-2xl'><i className="ri-arrow-down-s-line"></i></h5>
           <h4 className='text-2xl font-semibold'>Find a trip</h4>
         <form  onSubmit={(e)=>{
           submitHandle(e)
@@ -56,7 +72,8 @@ if(panelOpen){
             className='bg-[#eee] px-12 py-2 text-lg rounded-lg w-full mt-4' type="text" placeholder='Enter your destination' />
         </form>
       </div>
-      <div ref={panelRef} className='h-[0%] bg-red-500  '>
+      <div ref={panelRef} className='h-[0%] bg-white  '>
+        <LocationSearchPanel />
 
       </div>
        </div>
